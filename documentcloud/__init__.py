@@ -640,6 +640,8 @@ class Document(BaseAPIObject):
     
     def _get_url(self, url):
         if self.access == 'public':
+            # this is a bad idea but we're left with no other options. broken, not-(easily) upgradable SSL.
+            url = url.replace("https://", "http://")
             req = urllib2.Request(url)
             try:
                 return urllib2.urlopen(req).read()
